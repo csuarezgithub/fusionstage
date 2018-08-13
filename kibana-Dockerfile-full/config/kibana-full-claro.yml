@@ -1,0 +1,9 @@
+---
+# Default Kibana configuration from kibana-docker.
+
+server.name: kibana
+server.host: "0"
+elasticsearch.url: http://10.41.33.107:9200
+xpack.monitoring.ui.container.elasticsearch.enabled: true
+elasticsearch.username: metricbeat
+elasticsearch.password: Cl4r0T3stM3tr1cB34t2018
