@@ -1,0 +1,27 @@
+
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: myadmin
+  namespace: project-atp
+  labels:
+        app: mysql
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: myadmin
+    spec:
+      containers:
+        - name: phpmyadmin
+          image: 10.41.32.51:20202/desarrollo/phpmyadmin:1
+          ports:
+            - containerPort: 80
+          env:
+            - name: PMA_HOST
+              value: galera
+            - name: PMA_USER
+              value: root
+            - name: PMA_PASSWORD
+              value: ""
