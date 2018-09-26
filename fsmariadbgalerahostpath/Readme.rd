@@ -1,4 +1,3 @@
-ioi
 DockerFile Origen donde se inicia el contenedor con userid y groupid 27
 
 FROM centos:centos7
