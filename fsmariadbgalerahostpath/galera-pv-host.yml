@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+    name: datadir-mysql-0
+    annotations:
+        volume.beta.kubernetes.io/storage-class: "datadirmysql"
+spec:
+  accessModes:
+    - ReadWriteOnce
+  capacity:
+    storage: 2Gi
+  hostPath:
+    path: /data/datadir-mysql-0/
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+    name: datadir-mysql-1
+    annotations:
+        volume.beta.kubernetes.io/storage-class: "datadirmysql"
+spec:
+  accessModes:
+    - ReadWriteOnce
+  capacity:
+    storage: 2Gi
+  hostPath:
+    path: /data/datadir-mysql-1/
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+    name: datadir-mysql-2
+    annotations:
+        volume.beta.kubernetes.io/storage-class: "datadirmysql"
+spec:
+  accessModes:
+    - ReadWriteOnce
+  capacity:
+    storage: 2Gi
+  hostPath:
+    path: /data/datadir-mysql-2/
