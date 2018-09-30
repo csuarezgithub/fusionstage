@@ -57,3 +57,15 @@ MariaDB [mysql]> show global variables like "skip%";
 | skip_show_database    | OFF   |
 +-----------------------+-------+
 4 rows in set (0.00 sec)
+
+Revisar cuantos nodos tiene el cluster
+
+MariaDB [(none)]> SHOW STATUS LIKE 'wsrep_cluster_size';
++--------------------+-------+
+| Variable_name      | Value |
++--------------------+-------+
+| wsrep_cluster_size | 3     |
++--------------------+-------+
+1 row in set (0.01 sec)
+
+
