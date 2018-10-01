@@ -1,0 +1,88 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    service.alpha.kubernetes.io/tolerate-unready-endpoints: "true"
+  name: galeraprod
+  namespace: project-atp
+  labels:
+    app: mysqlprod
+spec:
+  ports:
+  - port: 3306
+    name: mysql
+  clusterIP: None
+  selector:
+    app: mysqlprod
+---
+apiVersion: apps/v1beta1
+kind: StatefulSet
+metadata:
+  name: mysqlprod
+  namespace: project-atp
+spec:
+  serviceName: galeraprod
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: mysqlprod
+      annotations:
+        pod.alpha.kubernetes.io/initialized: "true"
+    spec:
+      securityContext:
+        fsGroup: 0
+        runAsNonRoot: true
+        runAsUser: 0
+        #supplementalGroups: [27]
+      containers:
+      - name: mysql
+        image: 10.41.32.51:20202/desarrollo/mariadb-galera-centos:3
+        imagePullPolicy: Always
+        securityContext:
+          runAsUser: 0
+         # fsGroup: 27
+          #supplementalGroups: [27]
+          #seLinuxOptions:
+          #  level: "s0:c123,c456"
+        ports:
+        - containerPort: 3306
+          name: mysql
+        - containerPort: 4444
+          name: sst
+        - containerPort: 4567
+          name: replication
+        - containerPort: 4568
+          name: ist
+        readinessProbe:
+          exec:
+            command:
+            - /usr/share/container-scripts/mysql/readiness-probe.sh
+          initialDelaySeconds: 15
+          timeoutSeconds: 5
+        volumeMounts:
+        - name: datadirprod
+          mountPath: /var/lib/mysql
+          subPath: data
+        env:
+          - name: POD_NAMESPACE
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+          - name: MYSQL_ROOT_PASSWORD
+            value: Claro30092018
+  volumeClaimTemplates:
+  - metadata:
+      name: datadirprod
+      namespace: project-atp
+      labels:
+        app: mysqlprod
+      annotations:
+        volume.beta.kubernetes.io/storage-class: "any"
+        #volume.beta.kubernetes.io/mount-options: "uid=27,gid=27"
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 30Gi

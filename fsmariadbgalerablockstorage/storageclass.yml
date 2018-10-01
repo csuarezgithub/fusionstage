@@ -1,0 +1,10 @@
+kind: StorageClass
+apiVersion: storage.k8s.io/v1beta1
+metadata:
+  name: with-permissions
+provisioner: huawei.com/fuxivol
+#parameters:
+#reclaimPolicy: Retain
+mountOptions: #these options
+  - uid=27
+  - gid=27
