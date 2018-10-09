@@ -1,0 +1,17 @@
+[root@vappvm-601e html]# grep -R @mysql_connect *
+backprocess.good/_load2.php:$link = @mysql_connect("$SERVER_BD","$USER_BD_IVR","$PASS_BD_IVR") or die("No es posible conectar al servidor MySQL");
+backprocess.good/_load_cartera.php:$link = @mysql_connect("$SERVER_BD","$USER_BD_IVR","$PASS_BD_IVR") or die("No es posible conectar al servidor MySQL");
+clientes/regularizacion_hfc/_conn.php:$db = @mysql_connect('$SERVER_BD','$USER_BD_VT','$PASS_BD_VT') or die("No es posible conectar con el servidor MySQL");
+clientesclaro/testconn.php:$link = @mysql_connect("$SERVER_BD","$USER_BD","$PASS_BD") or die("No es posible conectar al servidor MySQL");
+clientesclaro/valida.php.BKP_20160106:$link = @mysql_connect("200.27.9.253","kanka_ivr","YcxXLWRsArYMWLvp") or die("No es posible conectar al servidor MySQL");
+clientesclaro/valida_01.php:$link = @mysql_connect("200.27.9.253","kanka_ivr","YcxXLWRsArYMWLvp") or die("No es posible conectar al servidor MySQL");
+clientesclaro/valida.php:$link = @mysql_connect("$SERVER_BD","$USER_BD","$PASS_BD") or die("No es posible conectar al servidor MySQL");
+clientesclaro/valida_00.php:$link = @mysql_connect("$SERVER_KANKA","$USER_BD_KANKA","$PASS_BD_KANKA") or die("No es posible conectar al servidor MySQL");
+clientesclaro/valida_new.php:$link = @mysql_connect("$SERVER_BD","$USER_BD","$PASS_BD") or die("No es posible conectar al servidor MySQL");
+clientesclaro/popup/index.php:$link = @mysql_connect("$SERVER_BD","$USER_BD_IVR","$PASS_BD_IVR") or die("No es posible conectar al servidor MySQL");
+clientesclaro/popup/_load2.php:$link = @mysql_connect("$SERVER_BD","$USER_BD_IVR","$PASS_BD_IVR") or die("No es posible conectar al servidor MySQL");
+clientesclaro/popup/_load.php:$link = @mysql_connect("$SERVER_BD","$USER_BD_IVR","$PASS_BD_IVR") or die("No es posible conectar al servidor MySQL");
+clientesclaro/valida_old.php:$link = @mysql_connect("200.27.9.253","kanka_ivr","YcxXLWRsArYMWLvp") or die("No es posible conectar al servidor MySQL");
+clientesclaro/valida_03052013.php:$link = @mysql_connect("200.27.9.253","kanka_ivr","YcxXLWRsArYMWLvp") or die("No es posible conectar al servidor MySQL");
+tipificadev/datas/error.php:$link = @mysql_connect("localhost","pmontero","ErjIadecAb4") or die("No es posible conectar al servidor MySQL");
+[root@vappvm-601e html]#

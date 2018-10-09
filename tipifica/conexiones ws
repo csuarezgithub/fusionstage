@@ -1,0 +1,36 @@
+[root@vappvm-601e html]# cd ws/
+[root@vappvm-601e ws]# grep -R @mysql_connect *
+[root@vappvm-601e ws]# grep -R CURLOPT_URL *
+autoconsulta.movil/wsdl.php:curl_setopt ($curl, CURLOPT_URL, 'http://autoconsulta.clarochile.cl/AutoAtencionClienteWS/services/AutoAtencionClienteWS/wsdl/AutoAtencionClienteWS.wsdl');
+boleta_dth/nusoap/lib/class.soap_transport_http.php:            $this->setCurlOption(CURLOPT_URL, $hostURL);
+boleta_dth/nusoap/lib/nusoap.php:               $this->setCurlOption(CURLOPT_URL, $hostURL);
+boleta_dth/download/index.php:curl_setopt ($curl, CURLOPT_URL, $fileLocation);
+boleta_hfc/backTipifica/reqBoletasHFC.php.20180503:     curl_setopt ($curl, CURLOPT_URL, "http://portalclientes.telmex.cl/wsoa/virtualsur.php?rut=".$pReceptor);
+boleta_hfc/reqBoletasHFC.php:   curl_setopt ($curl, CURLOPT_URL, "http://portalclientes.telmex.cl/wsoa/virtualsur.php?rut=".$pReceptor);
+boleta_hfc/nusoap/lib/class.soap_transport_http.php:            $this->setCurlOption(CURLOPT_URL, $hostURL);
+boleta_hfc/nusoap/lib/nusoap.php:               $this->setCurlOption(CURLOPT_URL, $hostURL);
+boleta_hfc/nusoap/reqBoletasHFC.php:    curl_setopt ($curl, CURLOPT_URL, "http://portalclientes.telmex.cl/wsoa/virtualsur.php?rut=".$pReceptor);
+boleta_hfc/reqBoletasHFC.php.20180503:  curl_setopt ($curl, CURLOPT_URL, "http://portalclientes.telmex.cl/wsoa/virtualsur.php?rut=".$pReceptor);
+boleta_hfc/reqBoletasHFC.php_01092018:  curl_setopt ($curl, CURLOPT_URL, "http://portalclientes.telmex.cl/wsoa/virtualsur.php?rut=".$pReceptor);
+index_cache.php:                curl_setopt ($curl, CURLOPT_URL, "http://200.27.9.117/tipifica/ws/cache/". $tipo ."_" . ${$tipo} . ".xml");
+nusoap/lib/class.soap_transport_http.php:               $this->setCurlOption(CURLOPT_URL, $hostURL);
+nusoap/lib/nusoap.php:          $this->setCurlOption(CURLOPT_URL, $hostURL);
+osbSaldo.php:curl_setopt($curl, CURLOPT_URL, $curl_url);
+saldo_eft/saldo.php:            curl_setopt( $this->channel, CURLOPT_URL, $url );
+[root@vappvm-601e ws]# ping autoconsulta.clarochile.cl
+PING autoconsulta.clarochile.cl (10.38.140.158) 56(84) bytes of data.
+64 bytes from clarowas11.clarochile.org (10.38.140.158): icmp_seq=1 ttl=249 time=4.99 ms
+3 packets transmitted, 3 received, 0% packet loss, time 2002ms
+rtt min/avg/max/mdev = 2.895/4.217/4.999/0.943 ms
+
+[root@vappvm-601e ws]# ping portalclientes.telmex.cl
+PING portalclientes.telmex.cl (200.9.151.48) 56(84) bytes of data.
+Sin conexion
+
+[root@vappvm-601e ws]# ping 200.27.9.117
+PING 200.27.9.117 (200.27.9.117) 56(84) bytes of data.
+^C
+--- 200.27.9.117 ping statistics ---
+5 packets transmitted, 0 received, 100% packet loss, time 4000ms
+
+[root@vappvm-601e ws]# 
