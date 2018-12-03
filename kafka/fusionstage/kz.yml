@@ -1,0 +1,149 @@
+apiVersion: apps/v1beta1
+kind: StatefulSet
+metadata:
+  creationTimestamp: 2018-11-30T18:51:14Z
+  enable: true
+  generation: 1
+  labels:
+    app: zk
+    appgroup: zk8_default-appGroup
+    stack-name: zk8
+  name: zk
+  namespace: fstest
+  resourceVersion: "26607897"
+  selfLink: /apis/apps/v1beta1/namespaces/fstest/statefulsets/zk
+  uid: e96f87cc-f4d0-11e8-acf0-0255ac10006e
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: zk
+      appgroup: zk8_default-appGroup
+      stack-name: zk8
+  serviceName: zk
+  template:
+    metadata:
+      annotations:
+        pod.alpha.kubernetes.io/initialized: "true"
+        scheduler.alpha.kubernetes.io/affinity: '{"podAntiAffinity":{"requiredDuringSchedulingIgnoredDuringExecution":[{"labelSelector":{"matchExpressions":[{"key":"app","operator":"In","values":["zk"]}]},"namespaces":null,"topologyKey":"kubernetes.io/hostname"}]}}'
+      creationTimestamp: null
+      enable: true
+      labels:
+        app: zk
+        appgroup: zk8_default-appGroup
+        stack-name: zk8
+    spec:
+      containers:
+      - command:
+        - sh
+        - -c
+        - zkGenConfig.sh && zkServer.sh start-foreground
+        env:
+        - name: CONFIG_MAPS
+          value: '[{"namespace":"fstest","configMap":"zk","name":"ZK_CLIENT_PORT"},{"namespace":"fstest","configMap":"zk","name":"ZK_ELECTION_PORT"},{"namespace":"fstest","configMap":"zk-cm","name":"ZK_HEAP_SIZE"},{"namespace":"fstest","configMap":"zk-cm","name":"ZK_INIT_LIMIT"},{"namespace":"fstest","configMap":"zk-cm","name":"ZK_MAX_CLIENT_CNXNS"},{"namespace":"fstest","configMap":"zk-cm","name":"ZK_PURGE_INTERVAL"},{"namespace":"fstest","configMap":"zk","name":"ZK_REPLICAS"},{"namespace":"fstest","configMap":"zk","name":"ZK_SERVER_PORT"},{"namespace":"fstest","configMap":"zk-cm","name":"ZK_SNAP_RETAIN_COUNT"},{"namespace":"fstest","configMap":"zk-cm","name":"ZK_SYNC_LIMIT"},{"namespace":"fstest","configMap":"zk-cm","name":"ZK_TICK_TIME"},{"namespace":"fstest","configMap":"zk","name":"context"}]'
+        - name: ZK_CLIENT_PORT
+          valueFrom:
+            configMapKeyRef:
+              key: zk-client-port
+              name: zk
+        - name: ZK_ELECTION_PORT
+          valueFrom:
+            configMapKeyRef:
+              key: zk-election-port
+              name: zk
+        - name: ZK_HEAP_SIZE
+          valueFrom:
+            configMapKeyRef:
+              key: jvm.heap
+              name: zk-cm
+        - name: ZK_INIT_LIMIT
+          valueFrom:
+            configMapKeyRef:
+              key: init
+              name: zk-cm
+        - name: ZK_MAX_CLIENT_CNXNS
+          valueFrom:
+            configMapKeyRef:
+              key: client.cnxns
+              name: zk-cm
+        - name: ZK_PURGE_INTERVAL
+          valueFrom:
+            configMapKeyRef:
+              key: purge.interval
+              name: zk-cm
+        - name: ZK_REPLICAS
+          valueFrom:
+            configMapKeyRef:
+              key: zk-replicas
+              name: zk
+        - name: ZK_SERVER_PORT
+          valueFrom:
+            configMapKeyRef:
+              key: zk-server-port
+              name: zk
+        - name: ZK_SNAP_RETAIN_COUNT
+          valueFrom:
+            configMapKeyRef:
+              key: snap.retain
+              name: zk-cm
+        - name: ZK_SYNC_LIMIT
+          valueFrom:
+            configMapKeyRef:
+              key: tick
+              name: zk-cm
+        - name: ZK_TICK_TIME
+          valueFrom:
+            configMapKeyRef:
+              key: tick
+              name: zk-cm
+        - name: context
+          valueFrom:
+            configMapKeyRef:
+              key: context
+              name: zk
+        image: 10.41.39.150:20202/fstestd660/k8szk:5
+        imagePullPolicy: Always
+        lifecycle: {}
+        name: k8szk
+        ports:
+        - containerPort: 2181
+          name: client
+          protocol: TCP
+        - containerPort: 2888
+          name: server
+          protocol: TCP
+        - containerPort: 3888
+          name: leader-election
+          protocol: TCP
+        resources: {}
+        securityContext: {}
+        terminationMessagePath: /dev/termination-log
+        volumeMounts:
+        - mountPath: /var/lib/zookeeper
+          name: datadir
+      dnsPolicy: ClusterFirst
+      imagePullSecrets:
+      - name: fstest-secret
+      restartPolicy: Always
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+  volumeClaimTemplates:
+  - metadata:
+      annotations:
+        volume.beta.kubernetes.io/storage-class: any
+      creationTimestamp: null
+      enable: true
+      labels:
+        app: zk
+        stack-name: zk8
+      name: datadir
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      resources:
+        requests:
+          storage: 20Gi
+    status:
+      phase: Pending
+status:
+  replicas: 3
